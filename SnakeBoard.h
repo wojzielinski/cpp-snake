@@ -1,0 +1,20 @@
+#ifndef SNAKE_SNAKEBOARD_H
+#define SNAKE_SNAKEBOARD_H
+
+#include <vector>
+
+struct Field {
+    bool hasFruit;
+};
+
+class SnakeBoard {
+    const int width;
+    const int height;
+    std::vector<Field> board;
+
+public:
+    SnakeBoard(int width, int height);
+};
+
+
+#endif //SNAKE_SNAKEBOARD_H

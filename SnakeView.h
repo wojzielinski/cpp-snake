@@ -1,5 +1,5 @@
-#ifndef SNAKE_WOJCIECH_ZIELINSKI_SNAKEVIEW_H
-#define SNAKE_WOJCIECH_ZIELINSKI_SNAKEVIEW_H
+#ifndef SNAKE_SNAKEVIEW_H
+#define SNAKE_SNAKEVIEW_H
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
@@ -11,4 +11,4 @@ class SnakeView {
 };
 
 
-#endif //SNAKE_WOJCIECH_ZIELINSKI_SNAKEVIEW_H
+#endif //SNAKE_SNAKEVIEW_H

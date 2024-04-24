@@ -22,6 +22,8 @@ add_executable(snake main.cpp
         SnakeView.h
         SnakeController.cpp
         SnakeController.h
+        SnakeBoard.cpp
+        SnakeBoard.h
 )
 
 # SFML LINKING
