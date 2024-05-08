@@ -14,6 +14,9 @@ class SnakeBoard {
 
 public:
     SnakeBoard(int width, int height);
+    int get_width() const;
+    int get_height() const;
+    bool has_fruit(int pos);
 };
 
 
