@@ -3,13 +3,8 @@
 
 #include "SnakeTextView.h"
 
-//SnakeTextView::SnakeTextView(SnakeBoard &boardRef, SnakeModel &modelRef):
-//board(boardRef),model(modelRef),boardWidth(boardRef.get_width()),boardHeight(boardRef.get_height())
-//{
-    //might put sth there in a future
-//}
-SnakeTextView::SnakeTextView(SnakeBoard &boardRef):
-        board(boardRef),boardWidth(boardRef.get_width()),boardHeight(boardRef.get_height())
+SnakeTextView::SnakeTextView(SnakeBoard &boardRef, SnakeModel &modelRef):
+board(boardRef),model(modelRef),boardWidth(boardRef.get_width()),boardHeight(boardRef.get_height())
 {
     //might put sth there in a future
 }
@@ -27,10 +22,12 @@ void SnakeTextView::debug_display() {
         }
         std::cout << std::endl;
     }
+    std::cout << "Length: " << model.get_length() << std::endl;
 }
 
 char SnakeTextView::display_field(int x, int y) {
     if(board.has_fruit(x,y)) return 'F';
     if(board.has_obstacle(x,y)) return 'X';
+    if(model.has_body(x,y)) return 'o';
     return '.';
 }

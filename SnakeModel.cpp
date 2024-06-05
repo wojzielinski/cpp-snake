@@ -22,29 +22,39 @@ void SnakeModel::set_velocity() {
 }
 
 void SnakeModel::move() {
-    Position newBlock = get_position(0);
+    std::pair<int,int> newBlock = get_position(0);
     switch(get_direction()) {
         case UP:
-            --newBlock.row;
+            --newBlock.second;
             break;
         case DOWN:
-            ++newBlock.row;
+            ++newBlock.second;
             break;
         case LEFT:
-            --newBlock.col;
+            --newBlock.first;
             break;
         case RIGHT:
-            ++newBlock.col;
+            ++newBlock.first;
             break;
     }
     body.insert(body.begin(), newBlock);
-    if(!fruit_eaten())
-        body.pop_back();
+    if(fruit_eaten()){
+        ++length;
+        BOARD.remove_fruit(newBlock.first, newBlock.second);
+        return;
+    }
+    body.pop_back();
 }
 
+//might want to put this in controller... why does model need to know if it hit the wall? why bother it with another problems...
 bool SnakeModel::fruit_eaten() {
-    Position currentPos = get_position(0);
-    return BOARD.has_fruit(currentPos.row * BOARD.get_width() + currentPos.col);
+    std::pair<int,int> currentPos = get_position(0);
+    return BOARD.has_fruit(currentPos.first, currentPos.second);
+}
+
+bool SnakeModel::obstacle_hit() {
+    std::pair<int,int> currentPos = get_position(0);
+    return BOARD.has_obstacle(currentPos.first, currentPos.second);
 }
 /*
 Direction SnakeModel::rand_direction(std::mt19937 & generator, std::uniform_int_distribution<int> & dist) {
@@ -69,12 +79,47 @@ Direction SnakeModel::rand_direction(std::mt19937 & generator, std::uniform_int_
 }
  */
 
+void SnakeModel::turn_left() {
+    switch (get_direction()) {
+        case UP:
+            change_direction(LEFT);
+            break;
+        case LEFT:
+            change_direction(DOWN);
+            break;
+        case DOWN:
+            change_direction(RIGHT);
+            break;
+        case RIGHT:
+            change_direction(UP);
+    }
+}
+
+void SnakeModel::turn_right() {
+    switch (get_direction()) {
+        case UP:
+            change_direction(RIGHT);
+            break;
+        case LEFT:
+            change_direction(UP);
+            break;
+        case DOWN:
+            change_direction(LEFT);
+            break;
+        case RIGHT:
+            change_direction(DOWN);
+    }
+}
+
 //PUBLIC
-SnakeModel::SnakeModel( SnakeBoard & boardRef , GameMode mode) : BOARD(boardRef),MODE(mode)
+SnakeModel::SnakeModel( SnakeBoard & boardRef , GameMode mode):
+BOARD(boardRef),MODE(mode)
 {
     length = 3;
     set_velocity();
-
+    body.push_back(std::pair<int,int>(boardRef.get_width()/2, boardRef.get_height()/2-2));
+    body.push_back(std::pair<int,int>(boardRef.get_width()/2, boardRef.get_height()/2-1));
+    body.push_back(std::pair<int,int>(boardRef.get_width()/2, boardRef.get_height()/2));
 }
 
 Direction SnakeModel::get_direction() const {
@@ -85,10 +130,32 @@ int SnakeModel::get_length() const {
     return length;
 }
 
-Position SnakeModel::get_position(int segment) const {
+std::pair<int,int> SnakeModel::get_position(int segment) const {
     return body.at(segment);
 }
 
-void SnakeModel::change_direction(Direction dir) {
-   direction = dir;
+void SnakeModel::change_direction(Direction dir){
+    direction = dir;
 }
+
+bool SnakeModel::has_body(int x, int y) {
+    if(body.empty()) return false;
+    for(auto it=begin(body); it!=end(body); ++it){
+        if(it->first == x && it->second==y) return true;
+    }
+    return false;
+}
+
+void SnakeModel::turn(Direction dir) {
+    switch (dir) {
+        case LEFT:
+            turn_left();
+            break;
+        case RIGHT:
+            turn_right();
+            break;
+        default:
+            return;
+    }
+}
+

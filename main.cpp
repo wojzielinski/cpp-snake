@@ -7,21 +7,43 @@
 #include "SnakeController.h"
 
 int main() {
+    srand(time(NULL));
     //std::mt19937 gen;
     //std::uniform_int_distribution<int> dist(1,4);
 
     //sf::RenderWindow window(sf::VideoMode(800, 600), "Minesweeper", sf::Style::Close);
 
     SnakeBoard board(10, 10);
-    //SnakeModel model(board,DEBUG);
+    SnakeModel model(board,DEBUG);
     //SnakeView view(board);
-    SnakeTextView textView(board);
+    SnakeTextView textView(board,model);
 
-    textView.debug_display();
+    //textView.debug_display();
+    for(int i=0; i<10;++i)
     board.push_fruit();
-    board.push_fruit();
-    textView.debug_display();
+    //textView.debug_display();
     board.push_obstacle();
+    //textView.debug_display();
+    model.change_direction(UP);
+    textView.debug_display();
+    model.move();
+    textView.debug_display();
+    model.move();
+    textView.debug_display();
+    model.change_direction(LEFT);
+    model.move();
+    textView.debug_display();
+    model.move();
+    textView.debug_display();
+    model.change_direction(DOWN);
+    textView.debug_display();
+    model.move();
+    textView.debug_display();
+    model.move();
+    textView.debug_display();
+    model.move();
+    textView.debug_display();
+    model.move();
     textView.debug_display();
     /*
     while(window.isOpen()){

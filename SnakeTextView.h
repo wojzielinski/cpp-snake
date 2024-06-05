@@ -6,13 +6,12 @@
 
 class SnakeTextView {
     SnakeBoard &board;
-    //SnakeModel &model;
+    SnakeModel &model;
     const int boardWidth;
     const int boardHeight;
 
 public:
-    //SnakeTextView(SnakeBoard& boardRef, SnakeModel& modelRef);
-    SnakeTextView(SnakeBoard& boardRef);
+    SnakeTextView(SnakeBoard& boardRef, SnakeModel& modelRef);
     void debug_display();
     char display_field(int x, int y);
 };

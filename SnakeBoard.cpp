@@ -59,3 +59,13 @@ void SnakeBoard::push_obstacle() {
     }
     else push_obstacle();
 }
+
+void SnakeBoard::remove_fruit(int x, int y) {
+    if(fruits.empty()) return;
+    for(auto it=begin(fruits); it!=end(fruits); ++it){
+        if(it->first == x && it->second==y){
+            fruits.erase(it);
+            return;
+        }
+    }
+}

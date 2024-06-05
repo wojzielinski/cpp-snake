@@ -18,6 +18,8 @@ public:
     bool has_obstacle(int x, int y);
     void push_fruit();
     void push_obstacle();
+    void remove_fruit(int x, int y);
+
 };
 
 
