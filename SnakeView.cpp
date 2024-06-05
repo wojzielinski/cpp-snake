@@ -73,7 +73,7 @@ void SnakeView::set_field_txt() {
     field.setPosition(0,0);
     sf::FloatRect fieldRect = field.getLocalBounds();
     field.setPointCount(4);
-    field.setFillColor(sf::Color::White);
+    field.setFillColor(sf::Color::Red);
     field.setOrigin( (fieldRect.width+fieldRect.left)/2,
                      (fieldRect.height+fieldRect.top)/2);
     field.setRotation(45);
@@ -94,8 +94,8 @@ void SnakeView::set_field_mine_txt() {
 
 //Sets all assets - background and other textures
 void SnakeView::set_textures() {
-    bgImage.loadFromFile("saper_bg.jpg");
-    bgSprite.setTexture(bgImage);
+    //bgImage.loadFromFile("saper_bg.jpg");
+    //bgSprite.setTexture(bgImage);
 
     set_flag_txt();
     set_mine_txt();
@@ -158,7 +158,7 @@ void SnakeView::update_board_state( sf::RenderWindow & win ) {
 //SFML View constructor - sets board reference and creates view setup
 SnakeView::SnakeView(SnakeBoard &boardRef) : board(boardRef),boardWidth(boardRef.get_width()),boardHeight(boardRef.get_height())
 {
-    field_size=30;
+    field_size=10;
     x_off=90;
     y_off=100;
     generate_points();
@@ -192,8 +192,10 @@ void SnakeView::draw(sf::RenderWindow &windowRef) {
         windowRef.draw(restartText);
     }*/
     windowRef.draw(title);
+    std::cout << "i was here too" << std::endl;
     /*windowRef.draw(flagsCounter);*/
     windowRef.draw(pointsCloud);          //draws base points (pointsCloud)
+    windowRef.display();
 }
 
 //Gets point position in window

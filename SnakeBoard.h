@@ -3,20 +3,21 @@
 
 #include <vector>
 
-struct Field {
-    bool hasFruit;
-};
-
 class SnakeBoard {
     const int width;
     const int height;
-    std::vector<Field> board;
+    std::vector<std::pair<int,int>> fruits;
+    std::vector<std::pair<int,int>> obstacles;
 
+    std::pair<int,int> rand_position();
 public:
     SnakeBoard(int width, int height);
     int get_width() const;
     int get_height() const;
-    bool has_fruit(int pos);
+    bool has_fruit(int x, int y);
+    bool has_obstacle(int x, int y);
+    void push_fruit();
+    void push_obstacle();
 };
 
 
