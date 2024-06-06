@@ -12,7 +12,6 @@ int main() {
     //std::uniform_int_distribution<int> dist(1,4);
 
     //sf::RenderWindow window(sf::VideoMode(800, 600), "Minesweeper", sf::Style::Close);
-
     SnakeBoard board(10, 10);
     SnakeModel model(board,DEBUG);
     //SnakeView view(board);
@@ -30,15 +29,16 @@ int main() {
     textView.debug_display();
     model.move();
     textView.debug_display();
-    model.change_direction(LEFT);
+    model.turn(LEFT);
     model.move();
     textView.debug_display();
     model.move();
     textView.debug_display();
-    model.change_direction(DOWN);
+    model.turn(LEFT);
     textView.debug_display();
     model.move();
     textView.debug_display();
+    model.turn(RIGHT);
     model.move();
     textView.debug_display();
     model.move();

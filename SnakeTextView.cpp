@@ -11,14 +11,14 @@ board(boardRef),model(modelRef),boardWidth(boardRef.get_width()),boardHeight(boa
 
 void SnakeTextView::debug_display() {
     std::cout << std::setw(4) << " ";
-    for(int a=0; a<boardWidth;a++){
-        std::cout << std::setw(3) << std::right << a;
+    for(int xIndex=0; xIndex<boardWidth;xIndex++){
+        std::cout << std::setw(3) << std::right << xIndex;
     }
     std::cout << std::endl;
-    for (int row = 0; row < boardHeight; row++) {
-        std::cout << std::setw(3) << std::right << row << " ";
-        for (int col=0; col < boardWidth; col++) {
-            std::cout << std::setw(3) << display_field(col,row);
+    for (int y = 0; y < boardHeight; y++) {
+        std::cout << std::setw(3) << std::right << y << " ";
+        for (int x=0; x < boardWidth; x++) {
+            std::cout << std::setw(3) << display_field(x,y);
         }
         std::cout << std::endl;
     }

@@ -14,7 +14,7 @@ class SnakeModel {
     GameMode MODE;
     int length;
     float velocity;
-    Direction direction;
+    int direction;
     std::vector<std::pair<int,int>> body;
 
     void set_velocity();

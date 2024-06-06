@@ -80,35 +80,11 @@ Direction SnakeModel::rand_direction(std::mt19937 & generator, std::uniform_int_
  */
 
 void SnakeModel::turn_left() {
-    switch (get_direction()) {
-        case UP:
-            change_direction(LEFT);
-            break;
-        case LEFT:
-            change_direction(DOWN);
-            break;
-        case DOWN:
-            change_direction(RIGHT);
-            break;
-        case RIGHT:
-            change_direction(UP);
-    }
+    direction = ((--direction)+4)%4;
 }
 
 void SnakeModel::turn_right() {
-    switch (get_direction()) {
-        case UP:
-            change_direction(RIGHT);
-            break;
-        case LEFT:
-            change_direction(UP);
-            break;
-        case DOWN:
-            change_direction(LEFT);
-            break;
-        case RIGHT:
-            change_direction(DOWN);
-    }
+    direction = ((++direction)+4)%4;
 }
 
 //PUBLIC
@@ -123,7 +99,18 @@ BOARD(boardRef),MODE(mode)
 }
 
 Direction SnakeModel::get_direction() const {
-    return direction;
+    switch (direction) {
+        case 0:
+            return UP;
+        case 1:
+            return RIGHT;
+        case 2:
+            return DOWN;
+        case 3:
+            return LEFT;
+        default:
+            return UP;
+    }
 }
 
 int SnakeModel::get_length() const {
