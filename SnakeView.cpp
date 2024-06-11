@@ -27,7 +27,7 @@ void SnakeView::set_shapes() {
 void SnakeView::draw_model(sf::RenderWindow & win) {
     int length = model.get_length();
 
-    modelHead.setPosition(get_point_pos(model.get_position(0).first, model.get_position(2).second));
+    modelHead.setPosition(get_point_pos(model.get_position(0).first, model.get_position(0).second));
     win.draw(modelHead);
     for(int segment = 1; segment < length; ++segment){
         modelTail.setPosition(get_point_pos(model.get_position(segment).first, model.get_position(segment).second));
@@ -49,7 +49,7 @@ void SnakeView::draw_fruits(sf::RenderWindow & win) {
 SnakeView::SnakeView(SnakeBoard &boardRef, SnakeModel & modelRef) :
 board(boardRef),model(modelRef),boardWidth(boardRef.get_width()),boardHeight(boardRef.get_height())
 {
-    field_size=10;
+    field_size=50;
     x_off=100;
     y_off=100;
     generate_points();

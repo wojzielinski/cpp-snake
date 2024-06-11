@@ -5,6 +5,7 @@
 #include "SnakeBoard.h"
 
 //PRIVATE
+
 void SnakeModel::move() {
     std::pair<int,int> newBlock = get_position(0);
     switch(get_direction()) {
@@ -36,34 +37,23 @@ bool SnakeModel::fruit_eaten() {
     return BOARD.has_fruit(currentPos.first, currentPos.second);
 }
 
-Direction SnakeModel::rand_direction() const {
+//Returns random direction - used only once in constructor
+int SnakeModel::rand_direction() const {
     std::random_device rd;
     std::mt19937 gen(rd());
     Direction dir;
     std::uniform_int_distribution<int> dist(0,3);
     int randomNumber = dist(gen);
-    switch (randomNumber) {
-        case 0:
-            dir = Direction::UP;
-            break;
-        case 1:
-            dir = Direction::RIGHT;
-            break;
-        case 2:
-            dir = Direction::DOWN;
-            break;
-        case 3:
-            dir = Direction::LEFT;
-            break;
-    }
-    return dir;
+    return randomNumber;
 }
 
+// Make snake go left
 void SnakeModel::turn_left() {
     int newDirection = direction-1;
     direction = (newDirection+4)%4;
 }
 
+// Make snake go right
 void SnakeModel::turn_right() {
     int newDirection = direction+1;
     direction = (newDirection+4)%4;
@@ -74,11 +64,11 @@ SnakeModel::SnakeModel( SnakeBoard & boardRef):
 BOARD(boardRef)
 {
     length = 1;
-    direction=0;
-    change_direction(rand_direction());
-    body.push_back(std::pair<int,int>(boardRef.get_width()/2, boardRef.get_height()/2));
+    direction = rand_direction();     //set random direction at the start
+    body.push_back(std::pair<int,int>(boardRef.get_width()/2, boardRef.get_height()/2));    //push snake head
 }
 
+// Get current direction
 Direction SnakeModel::get_direction() const {
     switch (direction) {
         case 0:
@@ -90,22 +80,38 @@ Direction SnakeModel::get_direction() const {
         case 3:
             return LEFT;
         default:
-            return UP;
+            return UP;      //just to make compiler happy ^_^
     }
 }
 
+// Get model's length
 int SnakeModel::get_length() const {
     return length;
 }
 
+//Get position of chosen segment - get_position(0) returns position of head
 std::pair<int,int> SnakeModel::get_position(int segment) const {
     return body.at(segment);
 }
 
-void SnakeModel::change_direction(Direction dir){
-    direction = dir;
+// Change direction
+int SnakeModel::direction_to_int(Direction dir){
+    switch (dir) {
+        case UP:
+            return 0;
+        case RIGHT:
+            return 1;
+        case DOWN:
+            return 2;
+        case LEFT:
+            return 3;
+        default:            //The All-Mighty Compiler is now relieved...
+            return 0;       //You got blessed for another 5 minutes of coding.
+    }
 }
 
+// These few lines of code call Sherlock Holmes, who inspects given point with his magnifying glass
+// and returns appropriate report on that matter.
 bool SnakeModel::has_body(int x, int y) const {
     if(body.empty()) return false;
     for(auto it=begin(body); it!=end(body); ++it){
@@ -114,6 +120,7 @@ bool SnakeModel::has_body(int x, int y) const {
     return false;
 }
 
+// Let the snake turn either left or right
 void SnakeModel::turn(Direction dir) {
     switch (dir) {
         case LEFT:

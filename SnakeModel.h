@@ -17,13 +17,13 @@ class SnakeModel {
     bool fruit_eaten();
     void turn_left();
     void turn_right();
-    Direction rand_direction() const;
+    int rand_direction() const;
 public:
     SnakeModel(SnakeBoard & boardRef);
     Direction get_direction() const;
     int get_length() const;
     std::pair<int,int> get_position(int segment) const;
-    void change_direction(Direction dir);
+    int direction_to_int(Direction dir);
     void turn(Direction dir);
     bool has_body(int x, int y) const;
     void move();

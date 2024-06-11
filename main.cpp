@@ -14,19 +14,16 @@ int main() {
     SnakeTextView textView(board,model);
 
     for(int i=0; i<10;++i) board.push_fruit();
-    textView.debug_display();
     model.move();
-    textView.debug_display();
+    model.move();
+    model.move();
     model.turn(LEFT);
     model.move();
-    textView.debug_display();
+    model.move();
+    model.move();
     model.turn(LEFT);
     model.move();
-    textView.debug_display();
-    model.turn(RIGHT);
     model.move();
-    textView.debug_display();
-
     while(window.isOpen()){
         view.draw(window);
     }
