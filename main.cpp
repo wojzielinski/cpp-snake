@@ -7,10 +7,6 @@
 #include "SnakeController.h"
 
 int main() {
-    srand(time(NULL));
-    //std::mt19937 gen;
-    //std::uniform_int_distribution<int> dist(1,4);
-
     //sf::RenderWindow window(sf::VideoMode(800, 600), "Minesweeper", sf::Style::Close);
     SnakeBoard board(10, 10);
     SnakeModel model(board,DEBUG);
@@ -20,10 +16,7 @@ int main() {
     //textView.debug_display();
     for(int i=0; i<10;++i)
     board.push_fruit();
-    //textView.debug_display();
     board.push_obstacle();
-    //textView.debug_display();
-    model.change_direction(UP);
     textView.debug_display();
     model.move();
     textView.debug_display();
@@ -59,7 +52,3 @@ int main() {
 
     return 0;
 }
-
-/* view depends on model
- * controller depends on model and view
- */

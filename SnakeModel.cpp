@@ -3,6 +3,7 @@
 
 #include "SnakeModel.h"
 #include "SnakeBoard.h"
+
 //PRIVATE
 void SnakeModel::set_velocity() {
     switch (MODE) {
@@ -56,45 +57,50 @@ bool SnakeModel::obstacle_hit() {
     std::pair<int,int> currentPos = get_position(0);
     return BOARD.has_obstacle(currentPos.first, currentPos.second);
 }
-/*
-Direction SnakeModel::rand_direction(std::mt19937 & generator, std::uniform_int_distribution<int> & dist) {
+
+Direction SnakeModel::rand_direction() const {
+    std::random_device rd;
+    std::mt19937 gen(rd());
     Direction dir;
-        int randomNumber = dist(generator);
-        std::cout << randomNumber << std::endl;
+    std::uniform_int_distribution<int> dist(0,3);
+    int randomNumber = dist(gen);
     switch (randomNumber) {
-        case 1:
+        case 0:
             dir = Direction::UP;
             break;
-        case 2:
+        case 1:
             dir = Direction::RIGHT;
             break;
-        case 3:
+        case 2:
             dir = Direction::DOWN;
             break;
-        case 4:
+        case 3:
             dir = Direction::LEFT;
             break;
     }
     return dir;
 }
- */
 
 void SnakeModel::turn_left() {
-    direction = ((--direction)+4)%4;
+    int newDirection = direction-1;
+    direction = (newDirection+4)%4;
 }
 
 void SnakeModel::turn_right() {
-    direction = ((++direction)+4)%4;
+    int newDirection = direction+1;
+    direction = (newDirection+4)%4;
 }
 
 //PUBLIC
 SnakeModel::SnakeModel( SnakeBoard & boardRef , GameMode mode):
 BOARD(boardRef),MODE(mode)
 {
-    length = 3;
+    length = 1;
+    direction=0;
+    change_direction(rand_direction());
     set_velocity();
-    body.push_back(std::pair<int,int>(boardRef.get_width()/2, boardRef.get_height()/2-2));
-    body.push_back(std::pair<int,int>(boardRef.get_width()/2, boardRef.get_height()/2-1));
+    //body.push_back(std::pair<int,int>(boardRef.get_width()/2, boardRef.get_height()/2-2));
+    //body.push_back(std::pair<int,int>(boardRef.get_width()/2, boardRef.get_height()/2-1));
     body.push_back(std::pair<int,int>(boardRef.get_width()/2, boardRef.get_height()/2));
 }
 

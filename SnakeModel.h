@@ -22,6 +22,7 @@ class SnakeModel {
     bool obstacle_hit();
     void turn_left();
     void turn_right();
+    Direction rand_direction() const;
 public:
     SnakeModel(SnakeBoard & boardRef , GameMode mode);
     Direction get_direction() const;
@@ -32,7 +33,6 @@ public:
     void move();
     bool has_body(int x, int y);
 
-    //Direction rand_direction(std::mt19937 & gen, std::uniform_int_distribution<int> & dist);
 };
 
 
