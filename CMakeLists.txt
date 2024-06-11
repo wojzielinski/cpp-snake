@@ -28,6 +28,7 @@ configure_file(assets/textures/icon.png ${CMAKE_CURRENT_BINARY_DIR}/icon.png COP
 add_executable(snake main.cpp
         SnakeModel.cpp
         SnakeModel.h
+        SnakeView.cpp
         SnakeView.h
         SnakeController.cpp
         SnakeController.h

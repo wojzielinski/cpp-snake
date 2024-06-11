@@ -26,8 +26,7 @@ void SnakeTextView::debug_display() {
 }
 
 char SnakeTextView::display_field(int x, int y) {
-    if(board.has_fruit(x,y)) return 'F';
-    if(board.has_obstacle(x,y)) return 'X';
     if(model.has_body(x,y)) return 'o';
+    if(board.has_fruit(x,y)) return '$';
     return '.';
 }

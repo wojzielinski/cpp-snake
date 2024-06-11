@@ -18,7 +18,6 @@ std::pair<int, int> SnakeBoard::rand_position() const {
 SnakeBoard::SnakeBoard(int width, int height) : width(width),height(height)
 {
     fruits.clear();
-    obstacles.clear();
 }
 
 int SnakeBoard::get_height() const {
@@ -37,32 +36,14 @@ bool SnakeBoard::has_fruit(int x, int y) const {
    return false;
 }
 
-bool SnakeBoard::has_obstacle(int x, int y) const {
-    if(obstacles.empty()) return false;
-    for(auto it=begin(obstacles); it!=end(obstacles); ++it){
-        if(it->first == x && it->second==y) return true;
-    }
-    return false;
-}
-
 void SnakeBoard::push_fruit() {
     std::pair<int,int> pos;
     pos = rand_position();
-    if(!has_fruit(pos.first,pos.second) && !has_obstacle(pos.first,pos.second)){
+    if(!has_fruit(pos.first,pos.second)){
         fruits.push_back(pos);
-        std::cout << "Pushed fruit on position x: " << pos.first << ", y: " << pos.second << std::endl;
+        //std::cout << "Pushed fruit on position x: " << pos.first << ", y: " << pos.second << std::endl;
     }
     else push_fruit();
-}
-
-void SnakeBoard::push_obstacle() {
-    std::pair<int,int> pos;
-    pos = rand_position();
-    if(!has_fruit(pos.first,pos.second) && !has_obstacle(pos.first,pos.second)){
-        obstacles.push_back(pos);
-        std::cout << "Pushed obstacle on position x: " << pos.first << ", y: " << pos.second << std::endl;
-    }
-    else push_obstacle();
 }
 
 void SnakeBoard::remove_fruit(int x, int y) {
@@ -73,4 +54,8 @@ void SnakeBoard::remove_fruit(int x, int y) {
             return;
         }
     }
+}
+
+std::vector<std::pair<int, int>> SnakeBoard::get_fruits() const {
+    return fruits;
 }

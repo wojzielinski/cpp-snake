@@ -5,23 +5,6 @@
 #include "SnakeBoard.h"
 
 //PRIVATE
-void SnakeModel::set_velocity() {
-    switch (MODE) {
-        case EASY:
-            velocity = 0.5;
-            break;
-        case NORMAL:
-            velocity = 1;
-            break;
-        case HARD:
-            velocity = 1.5;
-            break;
-        case DEBUG:
-            velocity = 0.1;
-            break;
-    }
-}
-
 void SnakeModel::move() {
     std::pair<int,int> newBlock = get_position(0);
     switch(get_direction()) {
@@ -51,11 +34,6 @@ void SnakeModel::move() {
 bool SnakeModel::fruit_eaten() {
     std::pair<int,int> currentPos = get_position(0);
     return BOARD.has_fruit(currentPos.first, currentPos.second);
-}
-
-bool SnakeModel::obstacle_hit() {
-    std::pair<int,int> currentPos = get_position(0);
-    return BOARD.has_obstacle(currentPos.first, currentPos.second);
 }
 
 Direction SnakeModel::rand_direction() const {
@@ -92,15 +70,12 @@ void SnakeModel::turn_right() {
 }
 
 //PUBLIC
-SnakeModel::SnakeModel( SnakeBoard & boardRef , GameMode mode):
-BOARD(boardRef),MODE(mode)
+SnakeModel::SnakeModel( SnakeBoard & boardRef):
+BOARD(boardRef)
 {
     length = 1;
     direction=0;
     change_direction(rand_direction());
-    set_velocity();
-    //body.push_back(std::pair<int,int>(boardRef.get_width()/2, boardRef.get_height()/2-2));
-    //body.push_back(std::pair<int,int>(boardRef.get_width()/2, boardRef.get_height()/2-1));
     body.push_back(std::pair<int,int>(boardRef.get_width()/2, boardRef.get_height()/2));
 }
 
@@ -131,7 +106,7 @@ void SnakeModel::change_direction(Direction dir){
     direction = dir;
 }
 
-bool SnakeModel::has_body(int x, int y) {
+bool SnakeModel::has_body(int x, int y) const {
     if(body.empty()) return false;
     for(auto it=begin(body); it!=end(body); ++it){
         if(it->first == x && it->second==y) return true;
@@ -151,4 +126,3 @@ void SnakeModel::turn(Direction dir) {
             return;
     }
 }
-
