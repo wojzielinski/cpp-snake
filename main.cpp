@@ -10,7 +10,7 @@ int main() {
     sf::RenderWindow window(sf::VideoMode(800, 600), "Snake", sf::Style::Close);
     SnakeBoard board(10, 10);
     SnakeModel model(board);
-    SnakeView view(board, model);
+    SnakeView view(board, model, window);
     SnakeTextView textView(board,model);
 
     for(int i=0; i<10;++i) board.push_fruit();

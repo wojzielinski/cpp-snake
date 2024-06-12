@@ -24,7 +24,7 @@ void SnakeView::set_shapes() {
     modelTail.setFillColor(sf::Color::White);
 }
 
-void SnakeView::draw_model(sf::RenderWindow & win) {
+void SnakeView::draw_model() {
     int length = model.get_length();
 
     modelHead.setPosition(get_point_pos(model.get_position(0).first, model.get_position(0).second));
@@ -35,7 +35,7 @@ void SnakeView::draw_model(sf::RenderWindow & win) {
     }
 }
 
-void SnakeView::draw_fruits(sf::RenderWindow & win) {
+void SnakeView::draw_fruits() {
     for(std::pair<int,int> & elem : board.get_fruits()){
         fruitShape.setPosition(get_point_pos(elem.first, elem.second));
         win.draw(fruitShape);
@@ -46,8 +46,8 @@ void SnakeView::draw_fruits(sf::RenderWindow & win) {
 //===============
 
 //SFML View constructor - sets board reference and creates view setup
-SnakeView::SnakeView(SnakeBoard &boardRef, SnakeModel & modelRef) :
-board(boardRef),model(modelRef),boardWidth(boardRef.get_width()),boardHeight(boardRef.get_height())
+SnakeView::SnakeView(SnakeBoard &boardRef, SnakeModel & modelRef, sf::RenderWindow & window) :
+board(boardRef),model(modelRef),win(window),boardWidth(boardRef.get_width()),boardHeight(boardRef.get_height())
 {
     field_size=50;
     x_off=100;
@@ -57,12 +57,12 @@ board(boardRef),model(modelRef),boardWidth(boardRef.get_width()),boardHeight(boa
 }
 
 //Draws all elements in window, that was passed to function by reference
-void SnakeView::draw(sf::RenderWindow &windowRef) {
-    windowRef.clear(sf::Color::Black);
-    windowRef.draw(pointsCloud);          //draws base points (pointsCloud)
-    draw_fruits(windowRef);
-    draw_model(windowRef);
-    windowRef.display();
+void SnakeView::draw() {
+    win.clear(sf::Color::Black);
+    win.draw(pointsCloud);          //draws base points (pointsCloud)
+    draw_fruits();
+    draw_model();
+    win.display();
 }
 
 //Gets point position in window

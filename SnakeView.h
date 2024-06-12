@@ -9,6 +9,7 @@
 class SnakeView {
     SnakeBoard & board;
     SnakeModel & model;
+    sf::RenderWindow & win;
 
     const int boardWidth;
     const int boardHeight;
@@ -23,11 +24,11 @@ class SnakeView {
 
     void generate_points();
     void set_shapes();
-    void draw_model(sf::RenderWindow & win);
-    void draw_fruits(sf::RenderWindow & win);
+    void draw_model();
+    void draw_fruits();
 public:
-    explicit SnakeView( SnakeBoard & boardRef, SnakeModel & modelRef);
-    void draw( sf::RenderWindow & windowRef );
+    explicit SnakeView( SnakeBoard & boardRef, SnakeModel & modelRef, sf::RenderWindow & window);
+    void draw();
     sf::Vector2f get_point_pos(int row, int col) const;
     int get_field_size() const;
 };
