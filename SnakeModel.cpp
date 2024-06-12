@@ -4,6 +4,19 @@
 #include "SnakeModel.h"
 #include "SnakeBoard.h"
 
+std::random_device rd;
+std::mt19937 gen(rd());
+
+std::pair<int, int> SnakeModel::rand_position() const {
+    std::uniform_int_distribution<int> widthDist(0, BOARD.get_width() - 1);
+    std::uniform_int_distribution<int> heightDist(0, BOARD.get_height() - 1);
+    std::pair<int, int> pos;
+    do {
+        pos.first = widthDist(gen);
+        pos.second = heightDist(gen);
+    } while (has_body(pos.first, pos.second) || BOARD.has_fruit(pos.first, pos.second));
+    return pos;
+}
 //PRIVATE
 
 void SnakeModel::move() {
@@ -26,6 +39,7 @@ void SnakeModel::move() {
     if(fruit_eaten()){
         ++length;
         BOARD.remove_fruit(newBlock.first, newBlock.second);
+        BOARD.push_fruit(rand_position());
         return;
     }
     body.pop_back();
@@ -41,7 +55,6 @@ bool SnakeModel::fruit_eaten() {
 int SnakeModel::rand_direction() const {
     std::random_device rd;
     std::mt19937 gen(rd());
-    Direction dir;
     std::uniform_int_distribution<int> dist(0,3);
     int randomNumber = dist(gen);
     return randomNumber;
@@ -132,4 +145,20 @@ void SnakeModel::turn(Direction dir) {
         default:
             return;
     }
+}
+
+void SnakeModel::push_direction_change(Direction dir) {
+    if(dir == Direction::LEFT || dir == Direction::RIGHT)
+        buffer.push_back(dir);
+}
+
+Direction SnakeModel::pop_direction_change() {
+    Direction dir=buffer.front();
+    buffer.erase(buffer.begin());
+    return dir;
+}
+
+bool SnakeModel::buffer_empty() const {
+    if(buffer.size() == 0) return true;
+    return false;
 }

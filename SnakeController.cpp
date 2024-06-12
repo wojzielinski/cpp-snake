@@ -1,6 +1,8 @@
 #include "SnakeController.h"
 
 #include <SFML/Graphics.hpp>
+
+
 void SnakeController::set_mode() {
     switch (MODE) {
         case EASY:
@@ -13,7 +15,7 @@ void SnakeController::set_mode() {
             timeToNextMove = 150;
             break;
         case DEBUG:
-            timeToNextMove = 3000;
+            timeToNextMove = 1500;
             break;
     }
 }
@@ -27,13 +29,14 @@ BOARD(board), MODEL(model)
 void SnakeController::next_move() {
     if(!time_to_move()) return;
     if(STATE == RUNNING){
+        if(!MODEL.buffer_empty())
+            MODEL.turn(MODEL.pop_direction_change());
         MODEL.move();
         timer.restart();
     }
     if(outside_board() || hit_tail()) STATE = FINISHED;
 
 }
-
 bool SnakeController::time_to_move() {
     if (timer.getElapsedTime().asMilliseconds() <= (timeToNextMove+50) &&
     timer.getElapsedTime().asMilliseconds() >= (timeToNextMove-50))
@@ -65,6 +68,7 @@ bool SnakeController::hit_tail() {
 
 void SnakeController::start() {
     STATE = RUNNING;
+    BOARD.push_fruit(MODEL.rand_position());
     MODEL.move();
     timer.restart();
 }

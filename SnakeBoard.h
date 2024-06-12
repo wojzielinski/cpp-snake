@@ -8,13 +8,12 @@ class SnakeBoard {
     const int height;
     std::vector<std::pair<int,int>> fruits;
 
-    std::pair<int,int> rand_position() const;
 public:
     SnakeBoard(int width, int height);
     int get_width() const;
     int get_height() const;
     bool has_fruit(int x, int y) const;
-    void push_fruit();
+    void push_fruit(std::pair<int,int> pos);
     void remove_fruit(int x, int y);
     std::vector<std::pair<int,int>> get_fruits() const;
 

@@ -42,6 +42,14 @@ void SnakeView::draw_fruits() {
     }
 }
 
+void SnakeView::set_boundary() {
+    boundary.setPosition(x_off, y_off);
+    boundary.setSize(sf::Vector2f(boardWidth*field_size,boardHeight*field_size));
+    boundary.setFillColor(sf::Color::Transparent);
+    boundary.setOutlineColor(sf::Color::Green);
+    boundary.setOutlineThickness(5);
+}
+
 //PUBLIC
 //===============
 
@@ -50,18 +58,20 @@ SnakeView::SnakeView(SnakeBoard &boardRef, SnakeModel & modelRef, sf::RenderWind
 board(boardRef),model(modelRef),win(window),boardWidth(boardRef.get_width()),boardHeight(boardRef.get_height())
 {
     field_size=30;
-    x_off=100;
-    y_off=100;
+    x_off=60;
+    y_off=60;
     generate_points();
     set_shapes();
+    set_boundary();
 }
 
 //Draws all elements in window, that was passed to function by reference
 void SnakeView::draw() {
     win.clear(sf::Color::Black);
-    win.draw(pointsCloud);          //draws base points (pointsCloud)
+    //win.draw(pointsCloud);          //draws base points (pointsCloud)
     draw_fruits();
     draw_model();
+    win.draw(boundary);
     win.display();
 }
 

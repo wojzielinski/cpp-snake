@@ -19,13 +19,14 @@ class SnakeView {
     sf::RectangleShape fruitShape;
     sf::RectangleShape modelHead;
     sf::RectangleShape modelTail;
-
+    sf::RectangleShape boundary;
     sf::VertexArray pointsCloud;
 
     void generate_points();
     void set_shapes();
     void draw_model();
     void draw_fruits();
+    void set_boundary();
 public:
     explicit SnakeView( SnakeBoard & boardRef, SnakeModel & modelRef, sf::RenderWindow & window);
     void draw();

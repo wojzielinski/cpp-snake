@@ -2,17 +2,6 @@
 #include <random>
 #include "SnakeBoard.h"
 
-std::random_device rd;
-std::mt19937 gen(rd());
-
-std::pair<int, int> SnakeBoard::rand_position() const {
-    std::uniform_int_distribution<int> widthDist(0,width-1);
-    std::uniform_int_distribution<int> heightDist(0,height-1);
-    std::pair<int,int> pos;
-    pos.first = widthDist(gen);
-    pos.second = heightDist(gen);
-    return pos;
-}
 
 //PUBLIC
 SnakeBoard::SnakeBoard(int width, int height) : width(width),height(height)
@@ -36,14 +25,10 @@ bool SnakeBoard::has_fruit(int x, int y) const {
    return false;
 }
 
-void SnakeBoard::push_fruit() {
-    std::pair<int,int> pos;
-    pos = rand_position();
+void SnakeBoard::push_fruit(std::pair<int,int> pos) {
     if(!has_fruit(pos.first,pos.second)){
         fruits.push_back(pos);
-        //std::cout << "Pushed fruit on position x: " << pos.first << ", y: " << pos.second << std::endl;
     }
-    else push_fruit();
 }
 
 void SnakeBoard::remove_fruit(int x, int y) {

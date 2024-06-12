@@ -6,13 +6,14 @@
 
 #include "SnakeBoard.h"
 
-enum Direction { UP , DOWN , LEFT , RIGHT };
+enum Direction { UP , RIGHT , DOWN , LEFT};
 
 class SnakeModel {
     SnakeBoard & BOARD;
     int length;
     int direction;
     std::vector<std::pair<int,int>> body;
+    std::vector<Direction> buffer;
 
     bool fruit_eaten();
     void turn_left();
@@ -27,6 +28,10 @@ public:
     void turn(Direction dir);
     bool has_body(int x, int y) const;
     void move();
+    std::pair<int,int> rand_position() const;
+    void push_direction_change(Direction dir);
+    Direction pop_direction_change();
+    bool buffer_empty() const;
 };
 
 
