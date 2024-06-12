@@ -5,26 +5,29 @@
 #include "SnakeModel.h"
 #include "SnakeView.h"
 
+#include <SFML/Graphics.hpp>
 enum GameMode { EASY , NORMAL , HARD , DEBUG };
 enum GameState {RUNNING, FINISHED, READY};
 
 class SnakeController {
-    const SnakeBoard & BOARD;
-    const SnakeModel & MODEL;
-    const SnakeView & VIEW;
+    SnakeBoard & BOARD;
+    SnakeModel & MODEL;
 
     GameMode MODE;
     GameState STATE;
-    int timer;
-    float timeToNextMove;
+    sf::Clock timer;
+    sf::Int32 timeToNextMove;
 
     void set_mode();
 public:
-    SnakeController(SnakeBoard & board, SnakeModel & model, SnakeView & view);
+    SnakeController(SnakeBoard & board, SnakeModel & model);
     void next_move();
     void change_mode(GameMode mode);
     bool time_to_move();
-
+    bool outside_board();
+    bool hit_tail();
+    void start();
+    GameState get_state();
 };
 
 
