@@ -42,6 +42,10 @@ void SnakeModel::move() {
         BOARD.push_fruit(rand_position());
         return;
     }
+    if(length == 1){
+        ++length;
+        return;
+    }
     body.pop_back();
 }
 

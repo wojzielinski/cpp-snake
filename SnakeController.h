@@ -19,7 +19,6 @@ class SnakeController {
     sf::Int32 timeToNextMove;
 
     void set_mode();
-    std::pair<int,int> rand_position() const;
 public:
     SnakeController(SnakeBoard & board, SnakeModel & model);
     void next_move();
@@ -29,6 +28,7 @@ public:
     bool hit_tail();
     void start();
     GameState get_state();
+    void restart();
 };
 
 

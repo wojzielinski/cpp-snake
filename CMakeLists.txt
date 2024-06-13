@@ -4,6 +4,9 @@ project(snake)
 set(CMAKE_CXX_STANDARD 17)
 add_compile_options(-Wall -Wextra -pedantic -Werror=return-type -Werror=parentheses -Werror=vla -Werror=array-bounds -Wcast-qual -Wmaybe-uninitialized )
 
+configure_file(assets/textures/snake_bg.png ${CMAKE_CURRENT_BINARY_DIR}/assets/textures/snake_bg.png COPYONLY)
+configure_file(assets/textures/snake_leaderboard.png ${CMAKE_CURRENT_BINARY_DIR}/assets/textures/snake_leaderboard.png COPYONLY)
+
 # SFML SETUP FOR WINDOWS
 IF (WIN32)
     # Include local sfml cmake config
@@ -26,6 +29,10 @@ add_executable(snake main.cpp
         SnakeBoard.h
         SnakeTextView.cpp
         SnakeTextView.h
+        SnakeGameManager.cpp
+        SnakeGameManager.h
+        SnakeLeaderboard.cpp
+        SnakeLeaderboard.h
 )
 
 # SFML LINKING

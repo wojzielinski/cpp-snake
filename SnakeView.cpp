@@ -63,6 +63,12 @@ board(boardRef),model(modelRef),win(window),boardWidth(boardRef.get_width()),boa
     generate_points();
     set_shapes();
     set_boundary();
+    menuBg.loadFromFile("assets/textures/snake_bg.png");
+    menuSprite.setTexture(menuBg);
+    menuSprite.setPosition(0,0);
+    leaderboardBg.loadFromFile("assets/textures/snake_leaderboard.png");
+    leaderboardSprite.setTexture(leaderboardBg);
+    leaderboardSprite.setPosition(0,0);
 }
 
 //Draws all elements in window, that was passed to function by reference
@@ -85,4 +91,16 @@ sf::Vector2f SnakeView::get_point_pos(int row, int col) const {
 //Gets field size
 int SnakeView::get_field_size() const {
     return field_size;
+}
+
+void SnakeView::draw_menu() {
+    win.clear(sf::Color::White);
+    win.draw(menuSprite);
+    win.display();
+}
+
+void SnakeView::draw_leaderboard() {
+    win.clear(sf::Color::White);
+    win.draw(leaderboardSprite);
+    win.display();
 }
