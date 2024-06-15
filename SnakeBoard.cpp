@@ -44,3 +44,7 @@ void SnakeBoard::remove_fruit(int x, int y) {
 std::vector<std::pair<int, int>> SnakeBoard::get_fruits() const {
     return fruits;
 }
+
+void SnakeBoard::restart() {
+    fruits.clear();
+}

@@ -3,6 +3,7 @@
 
 #include <vector>
 
+enum GameMode { EASY , NORMAL , HARD , DEBUG };
 class SnakeBoard {
     const int width;
     const int height;
@@ -16,7 +17,7 @@ public:
     void push_fruit(std::pair<int,int> pos);
     void remove_fruit(int x, int y);
     std::vector<std::pair<int,int>> get_fruits() const;
-
+    void restart();
 };
 
 

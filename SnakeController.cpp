@@ -1,4 +1,5 @@
 #include "SnakeController.h"
+#include "SnakeLeaderboard.h"
 
 #include <SFML/Graphics.hpp>
 
@@ -20,8 +21,8 @@ void SnakeController::set_mode() {
     }
 }
 
-SnakeController::SnakeController(SnakeBoard &board, SnakeModel &model) :
-BOARD(board), MODEL(model)
+SnakeController::SnakeController(SnakeBoard &board, SnakeModel &model, SnakeLeaderboard &ldrbrd) :
+BOARD(board), MODEL(model), LDRBRD(ldrbrd)
 {
     STATE = READY;
 }
@@ -34,8 +35,9 @@ void SnakeController::next_move() {
         MODEL.move();
         timer.restart();
     }
-    if(outside_board() || hit_tail()) STATE = FINISHED;
-
+    if(outside_board() || hit_tail()) {
+        STATE = FINISHED;
+    }
 }
 bool SnakeController::time_to_move() {
     if (timer.getElapsedTime().asMilliseconds() <= (timeToNextMove+50) &&
@@ -68,11 +70,21 @@ bool SnakeController::hit_tail() {
 
 void SnakeController::start() {
     STATE = RUNNING;
+    BOARD.restart();
+    MODEL.restart();
     BOARD.push_fruit(MODEL.rand_position());
     MODEL.move();
     timer.restart();
 }
 
-GameState SnakeController::get_state() {
+GameState SnakeController::get_state() const {
     return STATE;
+}
+
+GameMode SnakeController::get_gamemode() const {
+    return MODE;
+}
+
+void SnakeController::set_state(GameState state) {
+    STATE = state;
 }

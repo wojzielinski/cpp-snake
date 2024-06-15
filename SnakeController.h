@@ -3,15 +3,15 @@
 
 #include "SnakeBoard.h"
 #include "SnakeModel.h"
-#include "SnakeView.h"
+#include "SnakeLeaderboard.h"
 
 #include <SFML/Graphics.hpp>
-enum GameMode { EASY , NORMAL , HARD , DEBUG };
 enum GameState {RUNNING, FINISHED, READY};
 
 class SnakeController {
     SnakeBoard & BOARD;
     SnakeModel & MODEL;
+    SnakeLeaderboard & LDRBRD;
 
     GameMode MODE;
     GameState STATE;
@@ -20,15 +20,16 @@ class SnakeController {
 
     void set_mode();
 public:
-    SnakeController(SnakeBoard & board, SnakeModel & model);
+    SnakeController(SnakeBoard & board, SnakeModel & model, SnakeLeaderboard & ldrbrd);
     void next_move();
     void change_mode(GameMode mode);
     bool time_to_move();
     bool outside_board();
     bool hit_tail();
     void start();
-    GameState get_state();
-    void restart();
+    GameState get_state() const;
+    GameMode get_gamemode() const;
+    void set_state(GameState state);
 };
 
 

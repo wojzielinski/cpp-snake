@@ -13,8 +13,8 @@ class SnakeModel {
     int length;
     int direction;
     std::vector<std::pair<int,int>> body;
-    std::vector<Direction> buffer;
-
+    std::vector<Direction> buffer;          // buffer lets player add moves (direction changes)
+                                            // to queue, so there is only one direction change per move
     bool fruit_eaten();
     void turn_left();
     void turn_right();
@@ -32,6 +32,7 @@ public:
     void push_direction_change(Direction dir);
     Direction pop_direction_change();
     bool buffer_empty() const;
+    void restart();
 };
 
 

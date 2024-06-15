@@ -57,8 +57,6 @@ bool SnakeModel::fruit_eaten() {
 
 //Returns random direction - used only once in constructor
 int SnakeModel::rand_direction() const {
-    std::random_device rd;
-    std::mt19937 gen(rd());
     std::uniform_int_distribution<int> dist(0,3);
     int randomNumber = dist(gen);
     return randomNumber;
@@ -111,7 +109,7 @@ std::pair<int,int> SnakeModel::get_position(int segment) const {
     return body.at(segment);
 }
 
-// Change direction
+// Change direction format
 int SnakeModel::direction_to_int(Direction dir){
     switch (dir) {
         case UP:
@@ -165,4 +163,11 @@ Direction SnakeModel::pop_direction_change() {
 bool SnakeModel::buffer_empty() const {
     if(buffer.size() == 0) return true;
     return false;
+}
+
+void SnakeModel::restart() {
+    body.clear();
+    length = 1;
+    direction = rand_direction();     //set random direction at the start
+    body.push_back(std::pair<int,int>(BOARD.get_width()/2, BOARD.get_height()/2));    //push snake head
 }
