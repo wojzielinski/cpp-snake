@@ -29,6 +29,7 @@ public:
     bool has_body(int x, int y) const;
     void move();
     std::pair<int,int> rand_position() const;
+    std::pair<int,int> rand_obstacle_position() const;
     void push_direction_change(Direction dir);
     Direction pop_direction_change();
     bool buffer_empty() const;

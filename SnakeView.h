@@ -21,6 +21,7 @@ class SnakeView {
     int y_off;
     int field_size;
     sf::RectangleShape fruitShape;
+    sf::RectangleShape obstacleShape;
     sf::RectangleShape modelHead;
     sf::RectangleShape modelTail;
     sf::RectangleShape boundary;
@@ -44,6 +45,7 @@ class SnakeView {
     void set_shapes();
     void draw_model();
     void draw_fruits();
+    void draw_obstacles();
     void set_boundary();
     void set_textures(sf::RenderWindow & window);
     void set_labels();

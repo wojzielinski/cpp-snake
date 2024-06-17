@@ -75,7 +75,7 @@ void SnakeGameManager::display_finish() {
         {
             if (event.type == sf::Event::Closed)
                 WINDOW.close();
-            if (event.type == sf::Event::TextEntered){
+            if (event.type == sf::Event::TextEntered && usrInput.getSize()<24) {
                 if(event.text.unicode == 8 && !usrInput.isEmpty()){
                     usrInput.erase(usrInput.getSize()-1, 1);
                 }else {
@@ -84,7 +84,7 @@ void SnakeGameManager::display_finish() {
                 userName.setString("Enter name: " + usrInput);
             }
             if (event.type == sf::Event::KeyPressed) {
-                if(event.key.code == sf::Keyboard::Enter){
+                if(event.key.code == sf::Keyboard::Enter && !displayLB){
                     LEADRBRD.add_result(MODEL.get_length()*100, CTRL.get_gamemode(), usrInput);
                     displayLB=true;
                 }

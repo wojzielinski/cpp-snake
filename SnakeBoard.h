@@ -8,15 +8,19 @@ class SnakeBoard {
     const int width;
     const int height;
     std::vector<std::pair<int,int>> fruits;
+    std::vector<std::pair<int,int>> obstacles;
 
 public:
     SnakeBoard(int width, int height);
     int get_width() const;
     int get_height() const;
     bool has_fruit(int x, int y) const;
+    bool has_obstacle(int x, int y) const;
     void push_fruit(std::pair<int,int> pos);
+    void push_obstacle(std::pair<int,int> pos);
     void remove_fruit(int x, int y);
     std::vector<std::pair<int,int>> get_fruits() const;
+    std::vector<std::pair<int,int>> get_obstacles() const;
     void restart();
 };
 

@@ -35,7 +35,7 @@ void SnakeController::next_move() {
         MODEL.move();
         timer.restart();
     }
-    if(outside_board() || hit_tail()) {
+    if(outside_board() || hit_tail() || hit_obstacle()) {
         STATE = FINISHED;
     }
 }
@@ -68,11 +68,23 @@ bool SnakeController::hit_tail() {
     return false;
 }
 
+bool SnakeController::hit_obstacle() {
+    std::pair<int,int> head_pos;
+    head_pos = MODEL.get_position(0);
+    for(std::pair<int,int> obstacle : BOARD.get_obstacles()){
+        if(head_pos == obstacle) return true;
+    }
+    return false;
+}
+
 void SnakeController::start() {
     STATE = RUNNING;
     BOARD.restart();
     MODEL.restart();
     BOARD.push_fruit(MODEL.rand_position());
+    for(int obstacle = 0; obstacle <= 3*(MODE+1); ++obstacle){
+        BOARD.push_obstacle(MODEL.rand_obstacle_position());
+    }
     MODEL.move();
     timer.restart();
 }

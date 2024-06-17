@@ -26,6 +26,7 @@ public:
     bool time_to_move();
     bool outside_board();
     bool hit_tail();
+    bool hit_obstacle();
     void start();
     GameState get_state() const;
     GameMode get_gamemode() const;

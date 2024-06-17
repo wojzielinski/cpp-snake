@@ -14,7 +14,22 @@ std::pair<int, int> SnakeModel::rand_position() const {
     do {
         pos.first = widthDist(gen);
         pos.second = heightDist(gen);
-    } while (has_body(pos.first, pos.second) || BOARD.has_fruit(pos.first, pos.second));
+    } while (has_body(pos.first, pos.second) || BOARD.has_fruit(pos.first, pos.second)
+            || BOARD.has_obstacle(pos.first, pos.second));
+    return pos;
+}
+
+std::pair<int, int> SnakeModel::rand_obstacle_position() const {
+    std::uniform_int_distribution<int> widthDist(1, BOARD.get_width() - 2);
+    std::uniform_int_distribution<int> heightDist(1, BOARD.get_height() - 2);
+    std::pair<int, int> pos;
+    do {
+        pos.first = widthDist(gen);
+        pos.second = heightDist(gen);
+    } while ((pos.first <= body[0].first+3 && pos.first >= body[0].first-3 &&
+            pos.second <= body[0].second+3 && pos.second >= body[0].second-3)
+            || BOARD.has_obstacle(pos.first,pos.second)
+            || BOARD.has_fruit(pos.first,pos.second));
     return pos;
 }
 //PRIVATE

@@ -18,6 +18,8 @@ void SnakeView::generate_points() {
 void SnakeView::set_shapes() {
     fruitShape.setSize(sf::Vector2f(field_size, field_size));
     fruitShape.setFillColor(sf::Color::Red);
+    obstacleShape.setSize(sf::Vector2f(field_size, field_size));
+    obstacleShape.setFillColor(sf::Color::White);
     modelHead.setSize(sf::Vector2f(field_size, field_size));
     modelHead.setFillColor(sf::Color(34,177,76));
     modelTail.setSize(sf::Vector2f(field_size, field_size));
@@ -41,6 +43,13 @@ void SnakeView::draw_fruits() {
     for(std::pair<int,int> & elem : board.get_fruits()){
         fruitShape.setPosition(get_point_pos(elem.second, elem.first));
         win.draw(fruitShape);
+    }
+}
+
+void SnakeView::draw_obstacles() {
+    for(std::pair<int,int> & elem : board.get_obstacles()){
+        obstacleShape.setPosition(get_point_pos(elem.second, elem.first));
+        win.draw(obstacleShape);
     }
 }
 
@@ -89,8 +98,8 @@ void SnakeView::set_labels() {
     gameInstructions.setFont(font);
     gameInstructions.setFillColor(sf::Color(159,217,119));
     gameInstructions.setCharacterSize(40);
-    gameInstructions.setString("Press left/right arrow to move");
-    gameInstructions.setPosition(150,545);
+    gameInstructions.setString("Press left/right arrow to move\nwhite=obstacle, red=fruit");
+    gameInstructions.setPosition(55,510);
 
     gameInfoPoints.setFont(font);
     gameInfoPoints.setFillColor(sf::Color(159,217,119));
@@ -120,6 +129,7 @@ void SnakeView::draw() {
     win.clear(gameBgColor);
     //win.draw(pointsCloud);          //draws base points (pointsCloud)
     draw_fruits();
+    draw_obstacles();
     draw_model();
     gameInfoPoints.setString("Score: " + std::to_string(model.get_length()*100));
     gameInfoMode.setString(ldrbrd.gamemode_to_str(ctrl.get_gamemode()));
