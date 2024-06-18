@@ -7,6 +7,7 @@ add_compile_options(-Wall -Wextra -pedantic -Werror=return-type -Werror=parenthe
 configure_file(assets/textures/snake_bg.png ${CMAKE_CURRENT_BINARY_DIR}/assets/textures/snake_bg.png COPYONLY)
 configure_file(assets/textures/snake_credits.png ${CMAKE_CURRENT_BINARY_DIR}/assets/textures/snake_credits.png COPYONLY)
 configure_file(assets/fonts/VT323-Regular.ttf ${CMAKE_CURRENT_BINARY_DIR}/assets/fonts/VT323-Regular.ttf COPYONLY)
+configure_file(assets/readme/icon.png ${CMAKE_CURRENT_BINARY_DIR}/assets/readme/icon.png COPYONLY)
 
 # SFML SETUP FOR WINDOWS
 IF (WIN32)

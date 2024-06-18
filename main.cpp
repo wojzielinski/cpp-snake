@@ -8,6 +8,12 @@
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(800, 600), "Snake", sf::Style::Close);
+
+    // Set window icon
+    sf::Image icon;
+    icon.loadFromFile("assets/readme/icon.png");
+    window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+
     SnakeBoard board(22, 15);
     SnakeModel model(board);
     SnakeLeaderboard leaderboard("leaderboard.txt");

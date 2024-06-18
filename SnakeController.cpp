@@ -14,7 +14,7 @@ void SnakeController::set_mode() {
             timeToNextMove = 150;
             break;
         case DEBUG:
-            timeToNextMove = 1500;
+            timeToNextMove = 300;
             break;
     }
 }
