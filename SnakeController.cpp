@@ -1,9 +1,7 @@
 #include "SnakeController.h"
 #include "SnakeLeaderboard.h"
 
-#include <SFML/Graphics.hpp>
-
-
+// Set delay between moves depending on gamemode
 void SnakeController::set_mode() {
     switch (MODE) {
         case EASY:
@@ -21,12 +19,15 @@ void SnakeController::set_mode() {
     }
 }
 
+// Constructor - set GameState to READY
 SnakeController::SnakeController(SnakeBoard &board, SnakeModel &model, SnakeLeaderboard &ldrbrd) :
 BOARD(board), MODEL(model), LDRBRD(ldrbrd)
 {
     STATE = READY;
 }
 
+// If it's time to move - move snake and check if the snake didn't hit his
+// tail/wall/obstacle
 void SnakeController::next_move() {
     if(!time_to_move()) return;
     if(STATE == RUNNING){
@@ -39,6 +40,8 @@ void SnakeController::next_move() {
         STATE = FINISHED;
     }
 }
+
+// Check if it's time to move
 bool SnakeController::time_to_move() {
     if (timer.getElapsedTime().asMilliseconds() <= (timeToNextMove+50) &&
     timer.getElapsedTime().asMilliseconds() >= (timeToNextMove-50))
@@ -46,11 +49,13 @@ bool SnakeController::time_to_move() {
     return false;
 }
 
+// Change gamemode
 void SnakeController::change_mode(GameMode mode) {
     MODE = mode;
     set_mode();
 }
 
+// Check if model's head is outside the board
 bool SnakeController::outside_board() {
     std::pair<int,int> pos;
     pos = MODEL.get_position(0);
@@ -59,6 +64,7 @@ bool SnakeController::outside_board() {
     return false;
 }
 
+// Check if model's head hit the tail
 bool SnakeController::hit_tail() {
     std::pair<int,int> head_pos;
     head_pos = MODEL.get_position(0);
@@ -68,6 +74,7 @@ bool SnakeController::hit_tail() {
     return false;
 }
 
+// Check if model's head hit an obstacle
 bool SnakeController::hit_obstacle() {
     std::pair<int,int> head_pos;
     head_pos = MODEL.get_position(0);
@@ -77,6 +84,7 @@ bool SnakeController::hit_obstacle() {
     return false;
 }
 
+// Start game - set fruits, obstacles and model
 void SnakeController::start() {
     STATE = RUNNING;
     BOARD.restart();
@@ -89,14 +97,17 @@ void SnakeController::start() {
     timer.restart();
 }
 
+// Get current state of the game
 GameState SnakeController::get_state() const {
     return STATE;
 }
 
+// Get current mode of the game
 GameMode SnakeController::get_gamemode() const {
     return MODE;
 }
 
+// Set game state
 void SnakeController::set_state(GameState state) {
     STATE = state;
 }

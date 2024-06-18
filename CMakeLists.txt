@@ -5,7 +5,6 @@ set(CMAKE_CXX_STANDARD 17)
 add_compile_options(-Wall -Wextra -pedantic -Werror=return-type -Werror=parentheses -Werror=vla -Werror=array-bounds -Wcast-qual -Wmaybe-uninitialized )
 
 configure_file(assets/textures/snake_bg.png ${CMAKE_CURRENT_BINARY_DIR}/assets/textures/snake_bg.png COPYONLY)
-configure_file(assets/textures/snake_leaderboard.png ${CMAKE_CURRENT_BINARY_DIR}/assets/textures/snake_leaderboard.png COPYONLY)
 configure_file(assets/textures/snake_credits.png ${CMAKE_CURRENT_BINARY_DIR}/assets/textures/snake_credits.png COPYONLY)
 configure_file(assets/fonts/VT323-Regular.ttf ${CMAKE_CURRENT_BINARY_DIR}/assets/fonts/VT323-Regular.ttf COPYONLY)
 
@@ -18,7 +17,7 @@ IF (WIN32)
 ENDIF()
 
 # SFML SETUP
-find_package(SFML 2 COMPONENTS graphics audio REQUIRED)
+find_package(SFML 2 COMPONENTS graphics REQUIRED)
 
 add_executable(snake main.cpp
         SnakeModel.cpp
@@ -38,4 +37,4 @@ add_executable(snake main.cpp
 )
 
 # SFML LINKING
-target_link_libraries(snake sfml-graphics sfml-audio)
+target_link_libraries(snake sfml-graphics)

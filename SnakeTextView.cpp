@@ -3,12 +3,14 @@
 
 #include "SnakeTextView.h"
 
+// Constructor
 SnakeTextView::SnakeTextView(SnakeBoard &boardRef, SnakeModel &modelRef):
 board(boardRef),model(modelRef),boardWidth(boardRef.get_width()),boardHeight(boardRef.get_height())
 {
     //might put sth there in a future
 }
 
+// Display game in console
 void SnakeTextView::debug_display() {
     std::cout << std::setw(4) << " ";
     for(int xIndex=0; xIndex<boardWidth;xIndex++){
@@ -25,8 +27,10 @@ void SnakeTextView::debug_display() {
     std::cout << "Length: " << model.get_length() << std::endl;
 }
 
+// Return field as a char
 char SnakeTextView::display_field(int x, int y) {
     if(model.has_body(x,y)) return 'o';
     if(board.has_fruit(x,y)) return '$';
+    if(board.has_obstacle(x,y)) return 'X';
     return '.';
 }

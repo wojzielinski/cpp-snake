@@ -1,12 +1,13 @@
-#include <iostream>
 #include <random>
 
 #include "SnakeModel.h"
 #include "SnakeBoard.h"
 
+// Random numbers generator
 std::random_device rd;
 std::mt19937 gen(rd());
 
+// Generate random position for fruit placement
 std::pair<int, int> SnakeModel::rand_position() const {
     std::uniform_int_distribution<int> widthDist(0, BOARD.get_width() - 1);
     std::uniform_int_distribution<int> heightDist(0, BOARD.get_height() - 1);
@@ -19,6 +20,7 @@ std::pair<int, int> SnakeModel::rand_position() const {
     return pos;
 }
 
+// Generate random position for obstacle placement
 std::pair<int, int> SnakeModel::rand_obstacle_position() const {
     std::uniform_int_distribution<int> widthDist(1, BOARD.get_width() - 2);
     std::uniform_int_distribution<int> heightDist(1, BOARD.get_height() - 2);
@@ -32,8 +34,8 @@ std::pair<int, int> SnakeModel::rand_obstacle_position() const {
             || BOARD.has_fruit(pos.first,pos.second));
     return pos;
 }
-//PRIVATE
 
+// Move model depending on current model's direction
 void SnakeModel::move() {
     std::pair<int,int> newBlock = get_position(0);
     switch(get_direction()) {
@@ -89,7 +91,7 @@ void SnakeModel::turn_right() {
     direction = (newDirection+4)%4;
 }
 
-//PUBLIC
+// Constructor
 SnakeModel::SnakeModel( SnakeBoard & boardRef):
 BOARD(boardRef)
 {
@@ -124,22 +126,6 @@ std::pair<int,int> SnakeModel::get_position(int segment) const {
     return body.at(segment);
 }
 
-// Change direction format
-int SnakeModel::direction_to_int(Direction dir){
-    switch (dir) {
-        case UP:
-            return 0;
-        case RIGHT:
-            return 1;
-        case DOWN:
-            return 2;
-        case LEFT:
-            return 3;
-        default:            //The All-Mighty Compiler is now relieved...
-            return 0;       //You got blessed for another 5 minutes of coding.
-    }
-}
-
 // These few lines of code call Sherlock Holmes, who inspects given point with his magnifying glass
 // and returns appropriate report on that matter.
 bool SnakeModel::has_body(int x, int y) const {
@@ -164,22 +150,26 @@ void SnakeModel::turn(Direction dir) {
     }
 }
 
+// Push direction changes to buffer
 void SnakeModel::push_direction_change(Direction dir) {
     if(dir == Direction::LEFT || dir == Direction::RIGHT)
         buffer.push_back(dir);
 }
 
+// Get first direction change from buffer
 Direction SnakeModel::pop_direction_change() {
     Direction dir=buffer.front();
     buffer.erase(buffer.begin());
     return dir;
 }
 
+// Check if buffer with direction changes is empty
 bool SnakeModel::buffer_empty() const {
     if(buffer.size() == 0) return true;
     return false;
 }
 
+// Restart model
 void SnakeModel::restart() {
     body.clear();
     length = 1;

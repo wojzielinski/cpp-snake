@@ -12,15 +12,15 @@ class SnakeBoard {
 
 public:
     SnakeBoard(int width, int height);
-    int get_width() const;
-    int get_height() const;
-    bool has_fruit(int x, int y) const;
-    bool has_obstacle(int x, int y) const;
+    [[nodiscard]] int get_width() const;
+    [[nodiscard]] int get_height() const;
+    [[nodiscard]] bool has_fruit(int x, int y) const;
+    [[nodiscard]] bool has_obstacle(int x, int y) const;
     void push_fruit(std::pair<int,int> pos);
     void push_obstacle(std::pair<int,int> pos);
     void remove_fruit(int x, int y);
-    std::vector<std::pair<int,int>> get_fruits() const;
-    std::vector<std::pair<int,int>> get_obstacles() const;
+    [[nodiscard]] std::vector<std::pair<int,int>> get_fruits() const;
+    [[nodiscard]] std::vector<std::pair<int,int>> get_obstacles() const;
     void restart();
 };
 

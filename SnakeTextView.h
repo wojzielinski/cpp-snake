@@ -4,6 +4,7 @@
 #include "SnakeBoard.h"
 #include "SnakeModel.h"
 
+// NOTE - no longer needed in the project
 class SnakeTextView {
     SnakeBoard &board;
     SnakeModel &model;

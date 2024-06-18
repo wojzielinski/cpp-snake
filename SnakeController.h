@@ -28,8 +28,8 @@ public:
     bool hit_tail();
     bool hit_obstacle();
     void start();
-    GameState get_state() const;
-    GameMode get_gamemode() const;
+    [[nodiscard]] GameState get_state() const;
+    [[nodiscard]] GameMode get_gamemode() const;
     void set_state(GameState state);
 };
 

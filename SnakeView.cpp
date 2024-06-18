@@ -1,8 +1,5 @@
 #include "SnakeView.h"
 
-//PRIVATE
-//===============
-
 //Generates vector of points matching board size - point will act as a top left corner of field
 void SnakeView::generate_points() {
     pointsCloud.setPrimitiveType(sf::Points);
@@ -15,6 +12,7 @@ void SnakeView::generate_points() {
     }
 }
 
+// Set fruit, obstacle, model shapes
 void SnakeView::set_shapes() {
     fruitShape.setSize(sf::Vector2f(field_size, field_size));
     fruitShape.setFillColor(sf::Color::Red);
@@ -26,6 +24,7 @@ void SnakeView::set_shapes() {
     modelTail.setFillColor(sf::Color(181,230,29));
 }
 
+// Draw model
 void SnakeView::draw_model() {
     int length = model.get_length();
 
@@ -39,6 +38,7 @@ void SnakeView::draw_model() {
     }
 }
 
+// Draw fruits
 void SnakeView::draw_fruits() {
     for(std::pair<int,int> & elem : board.get_fruits()){
         fruitShape.setPosition(get_point_pos(elem.second, elem.first));
@@ -46,6 +46,7 @@ void SnakeView::draw_fruits() {
     }
 }
 
+// Draw obstacles
 void SnakeView::draw_obstacles() {
     for(std::pair<int,int> & elem : board.get_obstacles()){
         obstacleShape.setPosition(get_point_pos(elem.second, elem.first));
@@ -53,6 +54,7 @@ void SnakeView::draw_obstacles() {
     }
 }
 
+// Set boundary
 void SnakeView::set_boundary() {
     boundary.setPosition(x_off, y_off);
     boundary.setSize(sf::Vector2f(boardWidth*field_size,boardHeight*field_size));
@@ -61,12 +63,9 @@ void SnakeView::set_boundary() {
     boundary.setOutlineThickness(5);
 }
 
-//PUBLIC
-//===============
-
-//SFML View constructor - sets board reference and creates view setup
+// SFML View constructor - sets board reference and creates view setup
 SnakeView::SnakeView(SnakeBoard &boardRef, SnakeModel & modelRef, SnakeController & ctrlRef, sf::RenderWindow & window, SnakeLeaderboard & leader) :
-board(boardRef),model(modelRef),win(window),boardWidth(boardRef.get_width()),boardHeight(boardRef.get_height()),ldrbrd(leader), ctrl(ctrlRef)
+board(boardRef),model(modelRef),ctrl(ctrlRef),ldrbrd(leader),win(window),boardWidth(boardRef.get_width()),boardHeight(boardRef.get_height())
 {
     field_size=30;
     x_off=60;
@@ -80,6 +79,7 @@ board(boardRef),model(modelRef),win(window),boardWidth(boardRef.get_width()),boa
     set_textures(window);
 }
 
+// Set labels for game and leaderboard view
 void SnakeView::set_labels() {
     resultsTitle.setFont(font);
     resultsTitle.setFillColor(sf::Color(159,217,119));
@@ -112,19 +112,17 @@ void SnakeView::set_labels() {
     gameInfoMode.setPosition(680,10);
 }
 
+// Set textures (menubg, credits :)
 void SnakeView::set_textures(sf::RenderWindow & window) {
     menuBg.loadFromFile("assets/textures/snake_bg.png");
     menuSprite.setTexture(menuBg);
     menuSprite.setPosition(0,0);
-    leaderboardBg.loadFromFile("assets/textures/snake_leaderboard.png");
-    leaderboardSprite.setTexture(leaderboardBg);
-    leaderboardSprite.setPosition(0,0);
     credits.loadFromFile("assets/textures/snake_credits.png");
     creditsSprite.setTexture(credits);
     creditsSprite.setPosition(0,window.getSize().y-credits.getSize().y);
 }
 
-//Draws all elements in window, that was passed to function by reference
+// Draws all elements in window, that was passed to function by reference
 void SnakeView::draw() {
     win.clear(gameBgColor);
     //win.draw(pointsCloud);          //draws base points (pointsCloud)
@@ -140,18 +138,14 @@ void SnakeView::draw() {
     win.display();
 }
 
-//Gets point position in window
+// Gets point position in window
 sf::Vector2f SnakeView::get_point_pos(int row, int col) const {
     sf::Vector2f position(  pointsCloud[row*boardWidth+col].position.x,
                             pointsCloud[row*boardWidth+col].position.y);
     return position;
 }
 
-//Gets field size
-int SnakeView::get_field_size() const {
-    return field_size;
-}
-
+// Draw main menu
 void SnakeView::draw_menu() {
     win.clear(sf::Color::Black);
     win.draw(menuSprite);
@@ -159,6 +153,7 @@ void SnakeView::draw_menu() {
     win.display();
 }
 
+// Draw leaderboard
 void SnakeView::draw_leaderboard() {
     win.clear(gameBgColor);
     GameMode mode = ctrl.get_gamemode();

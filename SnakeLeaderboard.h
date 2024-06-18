@@ -13,8 +13,8 @@ struct Result {
     bool operator>(Result & n) const;
     Result();
     Result(int p, std::string u, GameMode m);
-    std::string gm_to_str();
-    std::string result_to_string();
+    [[nodiscard]] std::string gm_to_str() const;
+    [[nodiscard]] std::string result_to_string() const;
 };
 
 class SnakeLeaderboard {
@@ -23,14 +23,14 @@ class SnakeLeaderboard {
 
     void read_leaderboard();
     void write_leaderboard();
-    GameMode str_to_gamemode(const std::string & str) const;
+    [[nodiscard]] GameMode str_to_gamemode(const std::string & str) const;
     void sort_by_points();
     int count_mode_results(GameMode mode);
 public:
-    SnakeLeaderboard(const std::string & filename);
+    explicit SnakeLeaderboard(const std::string & filename);
     std::string get_result(int n, GameMode mode);
     void add_result(int points, GameMode mode, std::string user);
-    std::string gamemode_to_str(GameMode mode) const;
+    [[nodiscard]] std::string gamemode_to_str(GameMode mode) const;
 };
 
 

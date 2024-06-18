@@ -53,7 +53,6 @@ public:
     explicit SnakeView( SnakeBoard & boardRef, SnakeModel & modelRef, SnakeController & ctrlRef, sf::RenderWindow & window, SnakeLeaderboard & leader);
     void draw();
     sf::Vector2f get_point_pos(int row, int col) const;
-    int get_field_size() const;
     void draw_menu();
     void draw_leaderboard();
 };

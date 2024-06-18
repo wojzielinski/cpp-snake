@@ -18,21 +18,20 @@ class SnakeModel {
     bool fruit_eaten();
     void turn_left();
     void turn_right();
-    int rand_direction() const;
+    [[nodiscard]] int rand_direction() const;
 public:
-    SnakeModel(SnakeBoard & boardRef);
-    Direction get_direction() const;
-    int get_length() const;
-    std::pair<int,int> get_position(int segment) const;
-    int direction_to_int(Direction dir);
+    explicit SnakeModel(SnakeBoard & boardRef);
+    [[nodiscard]] Direction get_direction() const;
+    [[nodiscard]] int get_length() const;
+    [[nodiscard]] std::pair<int,int> get_position(int segment) const;
     void turn(Direction dir);
-    bool has_body(int x, int y) const;
+    [[nodiscard]] bool has_body(int x, int y) const;
     void move();
-    std::pair<int,int> rand_position() const;
-    std::pair<int,int> rand_obstacle_position() const;
+    [[nodiscard]] std::pair<int,int> rand_position() const;
+    [[nodiscard]] std::pair<int,int> rand_obstacle_position() const;
     void push_direction_change(Direction dir);
     Direction pop_direction_change();
-    bool buffer_empty() const;
+    [[nodiscard]] bool buffer_empty() const;
     void restart();
 };
 

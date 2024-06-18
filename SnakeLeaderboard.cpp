@@ -49,6 +49,7 @@ std::string SnakeLeaderboard::gamemode_to_str(GameMode mode) const {
     return "undefined";
 }
 
+// Get n-th result (for given mode) as a string
 std::string SnakeLeaderboard::get_result(int n, GameMode mode) {
     if(n >= count_mode_results(mode)) return "-/-";
     std::string resStr;
@@ -62,7 +63,8 @@ std::string SnakeLeaderboard::get_result(int n, GameMode mode) {
     return results[it].result_to_string();
 }
 
-std::string Result::result_to_string() {
+// Convert Result structure to string
+std::string Result::result_to_string() const {
     std::string resStr;
     resStr += std::to_string(points);
     resStr += " ";
@@ -72,7 +74,8 @@ std::string Result::result_to_string() {
     return resStr;
 }
 
-std::string Result::gm_to_str(){
+// Convert GameMode to string
+std::string Result::gm_to_str() const {
     if(mode == EASY) return "(E)";
     if(mode == NORMAL) return "(N)";
     if(mode == HARD) return "(H)";
@@ -93,14 +96,15 @@ bool Result::operator>(Result & n) const {
     return false;
 }
 
+// Result constructors
 Result::Result(){}
-
 Result::Result(int p, std::string u, GameMode m) {
     points = p;
     user = u;
     mode = m;
 }
 
+// Add result to results vector, sort it and write to file
 void SnakeLeaderboard::add_result(int points, GameMode mode, std::string user) {
     if (count_mode_results(mode) < 10) {
         results.push_back(Result(points, user, mode));
@@ -125,6 +129,7 @@ void SnakeLeaderboard::add_result(int points, GameMode mode, std::string user) {
     }
 }
 
+// Count number of results for specific game mode
 int SnakeLeaderboard::count_mode_results(GameMode mode) {
     int counter = 0;
     for( Result & res : results){
@@ -134,12 +139,13 @@ int SnakeLeaderboard::count_mode_results(GameMode mode) {
     return counter;
 }
 
+// Write results vector to file
 void SnakeLeaderboard::write_leaderboard() {
     std::fstream fs;
     fs.open(FILE,std::fstream::out);
     if(fs.is_open()) {
         std::string line;
-        for(Result res : results){
+        for(Result & res : results){
             line = res.result_to_string();
             fs << line;
             fs << std::endl;

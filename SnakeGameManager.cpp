@@ -1,4 +1,3 @@
-#include <iostream>
 #include "SnakeGameManager.h"
 
 // Constructor - set references to other objects, set dev_commands flag to false
@@ -51,8 +50,8 @@ void SnakeGameManager::display_menu() {
                 if(event.key.code == sf::Keyboard::Num3)
                     display_game(HARD);
                 dev_commands=false;
-                if(event.key.code == sf::Keyboard::Num6)
-                    dev_commands = true;
+                if(event.key.code == sf::Keyboard::Num6)    // Debug mode after
+                    dev_commands = true;                    // typing 69
             }
         }
         if(CTRL.get_state() != FINISHED && CTRL.get_state() != RUNNING)

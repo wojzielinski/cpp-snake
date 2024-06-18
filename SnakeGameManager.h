@@ -14,7 +14,6 @@ class SnakeGameManager {
     SnakeLeaderboard & LEADRBRD;
 
     bool dev_commands;          //top secret flag - allows to play in DEBUG mode
-    //void display_leaderboard();
 public:
     SnakeGameManager(SnakeModel & model, SnakeController & ctrl, SnakeView & view, sf::RenderWindow & win, SnakeLeaderboard & leadrbrd);
     void display_game(GameMode mode);
@@ -22,6 +21,5 @@ public:
     void display_finish();
     void run();
 };
-
 
 #endif //SNAKE_SNAKEGAMEMANAGER_H
